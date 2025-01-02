@@ -9,7 +9,7 @@ AC_INIT([MMUX Bash Pointers],[MMUX_PACKAGE_VERSION],
 MMUX_INIT
 MMUX_LIBTOOL_LIBRARY_VERSIONS([mmux_bash_pointers],0,0,0)
 AC_REVISION([0.1])
-AC_COPYRIGHT([Copyright (c) 2024 Marco Maggi <mrc.mgg@gmail.com>
+AC_COPYRIGHT([Copyright (c) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
 This program is free software: you  can redistribute it and/or modify it
 under  the  terms of  the GNU  General Public  License as  published  by
@@ -68,10 +68,9 @@ PKG_INSTALLDIR
 MMUX_CHECK_PKG_CONFIG_MACROS
 PKG_CHECK_MODULES([BASH],[bash],,[AC_MSG_WARN([package GNU Bash not found])])
 
-# This is for the "basename()" and similar functions from GNU C Library.
-AC_CHECK_HEADERS([libgen.h])
-
 AC_SEARCH_LIBS(cos, m,, [AC_MSG_ERROR([Cannot find libm])])
+PKG_CHECK_MODULES([MMUX_CC_TYPES],[mmux-cc-types >= 0.1.0])
+PKG_CHECK_MODULES([MMUX_CC_LIBC], [mmux-cc-libc  >= 0.1.0])
 MBFL_SETUP_FOR_TESTING([v3.0.0])
 
 AC_CACHE_SAVE
@@ -138,8 +137,6 @@ AC_CONFIG_FILES([Makefile]
   [meta/scripts/mmux-bash-pointers.pc]
   [meta/slackware/slack-desc])
 MMUX_OUTPUT
-#AC_CONFIG_SUBDIRS([mmux-cc-types])
-AC_CONFIG_SUBDIRS([mmux-cc-libc])
 AC_OUTPUT
 
 ### end of file

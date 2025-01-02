@@ -5,13 +5,10 @@ AUTOMAKE_OPTIONS	= foreign
 EXTRA_DIST		= INSTALL
 dist_doc_DATA		= README COPYING
 AM_CFLAGS		= $(MMUX_CFLAGS)
-AM_CPPFLAGS		=  -I$(srcdir)/src/ -I$(builddir)/src/
-AM_CPPFLAGS		+= -I$(builddir)/mmux-cc-libc/src -I$(builddir)/mmux-cc-libc/mmux-cc-types/src
+AM_CPPFLAGS		= -I$(srcdir)/src/ -I$(builddir)/src/
 CLEANFILES		=
 DISTCLEANFILES		=
 BUILT_SOURCES		=
-
-SUBDIRS			= $(subdirs)
 
 ## --------------------------------------------------------------------
 
@@ -206,9 +203,9 @@ include_HEADERS				= \
 
 lib_LTLIBRARIES				= libmmux-bash-pointers.la
 libmmux_bash_pointers_la_CPPFLAGS	= $(AM_CPPFLAGS) -I$(builddir)/src
-libmmux_bash_pointers_la_CFLAGS		= $(AM_CFLAGS) $(BASH_CFLAGS)
+libmmux_bash_pointers_la_CFLAGS		= $(AM_CFLAGS) $(BASH_CFLAGS) $(MMUX_CC_TYPES_CFLAGS) $(MMUX_CC_LIBC_CFLAGS)
 libmmux_bash_pointers_la_LDFLAGS	= $(mmux_bash_pointers_LINKER_VERSION) $(AM_LDFLAGS)
-libmmux_bash_pointers_la_LIBADD		= mmux-cc-libc/mmux-cc-types/libmmux-cc-types.la mmux-cc-libc/libmmux-cc-libc.la
+libmmux_bash_pointers_la_LIBADD		=  $(MMUX_CC_TYPES_LIBS) $(MMUX_CC_LIBC_LIBS)
 libmmux_bash_pointers_la_SOURCES	= \
 	src/mmux-bash-pointers.h			\
 	src/mmux-bash-pointers-config.h			\

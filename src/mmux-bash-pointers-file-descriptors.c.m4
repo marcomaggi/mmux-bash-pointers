@@ -602,7 +602,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_ioctl]]])
       char const *	atmark_varname;
       mmux_sint_t	atmark;
 
-      MMUX_BASH_PARSE_BUILTIN_ARGNUM_BAHS_PARM(atmark_varname,	3);
+      MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(atmark_varname,	3);
       MMUX_LIBC_FUNCALL(mmux_libc_ioctl(fd, command, &atmark));
       return mmux_sint_bind_to_bash_variable(atmark_varname, atmark, MMUX_BASH_BUILTIN_STRING_NAME);
     }

@@ -866,7 +866,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_utime]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_PTN(pathname,		1);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(utimbuf_pointer,	2);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_utime(pathname, utimbuf_pointer));
+    MMUX_LIBC_FUNCALL(mmux_libc_utime(pathname, *utimbuf_pointer));
     return MMUX_SUCCESS;
   }
 }
@@ -886,7 +886,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_utimes]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(access_pointer,		2);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(modification_pointer,	3);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_utimes(pathname, access_pointer, modification_pointer));
+    MMUX_LIBC_FUNCALL(mmux_libc_utimes(pathname, *access_pointer, *modification_pointer));
     return MMUX_SUCCESS;
   }
 }
@@ -906,7 +906,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_lutimes]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(access_pointer,		2);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(modification_pointer,	3);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_lutimes(pathname, access_pointer, modification_pointer));
+    MMUX_LIBC_FUNCALL(mmux_libc_lutimes(pathname, *access_pointer, *modification_pointer));
     return MMUX_SUCCESS;
   }
 }
@@ -926,7 +926,7 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_futimes]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(access_pointer,		2);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(modification_pointer,	3);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_futimes(fd, access_pointer, modification_pointer));
+    MMUX_LIBC_FUNCALL(mmux_libc_futimes(fd, *access_pointer, *modification_pointer));
     return MMUX_SUCCESS;
   }
 }

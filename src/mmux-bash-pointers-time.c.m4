@@ -7,7 +7,7 @@
 
 	This module implements time and date builtins.
 
-  Copyright (C) 2024 Marco Maggi <mrc.mgg@gmail.com>
+  Copyright (C) 2024, 2025 Marco Maggi <mrc.mgg@gmail.com>
 
   This program is free  software: you can redistribute it and/or  modify it under the
   terms  of  the  GNU General  Public  License  as  published  by the  Free  Software
@@ -471,16 +471,22 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_strftime]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(template,		2);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(tm_pointer,	3);
   {
-#undef  IS_THIS_ENOUGH_QUESTION_MARK
-#define IS_THIS_ENOUGH_QUESTION_MARK	4096
-    mmux_usize_t	buflen = IS_THIS_ENOUGH_QUESTION_MARK;
-    char		bufstr[buflen];
+    mmux_usize_t	required_nbytes_including_nil;
 
-    if (mmux_libc_strftime(bufstr, &buflen, template, tm_pointer)) {
-      mmux_libc_dprintfer("%s: error converting broken-time to string\n", MMUX_BASH_BUILTIN_STRING_NAME);
-      return MMUX_FAILURE;
+    if (mmux_libc_strftime_required_nbytes_including_nil(&required_nbytes_including_nil, template, tm_pointer)) {
+      return true;
     }
-    return mmux_string_bind_to_bash_variable(string_varname, bufstr, MMUX_BASH_BUILTIN_STRING_NAME);
+
+    {
+      char		bufstr[required_nbytes_including_nil];
+      mmux_usize_t	required_nbytes_without_zero;
+
+      if (mmux_libc_strftime(&required_nbytes_without_zero, bufstr, required_nbytes_including_nil, template, tm_pointer)) {
+	mmux_libc_dprintfer("%s: error converting broken-time to string\n", MMUX_BASH_BUILTIN_STRING_NAME);
+	return MMUX_FAILURE;
+      }
+      return mmux_string_bind_to_bash_variable(string_varname, bufstr, MMUX_BASH_BUILTIN_STRING_NAME);
+    }
   }
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],

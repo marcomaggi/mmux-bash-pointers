@@ -908,13 +908,13 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_readv]]])
   mmux_libc_iovec_array_t	iovec_array;
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,					2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_readv(&nbytes_done, fd, iovec_array));
+    MMUX_LIBC_FUNCALL(mmux_libc_readv(&nbytes_done, fd, &iovec_array));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }
@@ -931,13 +931,13 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_writev]]])
   mmux_libc_iovec_array_t	iovec_array;
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,					2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_writev(&nbytes_done, fd, iovec_array));
+    MMUX_LIBC_FUNCALL(mmux_libc_writev(&nbytes_done, fd, &iovec_array));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }
@@ -955,14 +955,14 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_preadv]]])
   mmux_off_t			offset;
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,					2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_OFF(offset,				5);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_preadv(&nbytes_done, fd, iovec_array, offset));
+    MMUX_LIBC_FUNCALL(mmux_libc_preadv(&nbytes_done, fd, &iovec_array, offset));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }
@@ -980,14 +980,14 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_pwritev]]])
   mmux_off_t			offset;
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,					2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_OFF(offset,				5);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_pwritev(&nbytes_done, fd, iovec_array, offset));
+    MMUX_LIBC_FUNCALL(mmux_libc_pwritev(&nbytes_done, fd, &iovec_array, offset));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }
@@ -1006,15 +1006,15 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_preadv2]]])
   mmux_sint_t			flags;
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,					2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_OFF(offset,				5);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT(flags,				6);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_preadv2(&nbytes_done, fd, iovec_array, offset, flags));
+    MMUX_LIBC_FUNCALL(mmux_libc_preadv2(&nbytes_done, fd, &iovec_array, offset, flags));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }
@@ -1034,14 +1034,14 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_pwritev2]]])
 
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_BASH_PARM(done_varname,		1);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_FD(fd,				2);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_pointer,3);
-  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_length,		4);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_TYPED_POINTER(iovec_array.iova_base,	3);
+  MMUX_BASH_PARSE_BUILTIN_ARGNUM_USIZE(iovec_array.iova_len,		4);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_OFF(offset,				5);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT(flags,				6);
   {
     mmux_usize_t	nbytes_done;
 
-    MMUX_LIBC_FUNCALL(mmux_libc_pwritev2(&nbytes_done, fd, iovec_array, offset, flags));
+    MMUX_LIBC_FUNCALL(mmux_libc_pwritev2(&nbytes_done, fd, &iovec_array, offset, flags));
     return mmux_usize_bind_to_bash_variable(done_varname, nbytes_done, MMUX_BASH_BUILTIN_STRING_NAME);
   }
 }

@@ -551,8 +551,11 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_access]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_LIBC_PTN(pathname,	1);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT(how,		2);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_access(pathname, how));
-    return MMUX_SUCCESS;
+    bool	access_is_permitted;
+
+    MMUX_LIBC_FUNCALL(mmux_libc_access(&access_is_permitted, pathname, how));
+    return (access_is_permitted)? MMUX_SUCCESS : MMUX_FAILURE;
+
   }
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
@@ -573,8 +576,10 @@ MMUX_BASH_BUILTIN_MAIN([[[mmux_libc_faccessat]]])
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT(how,		3);
   MMUX_BASH_PARSE_BUILTIN_ARGNUM_SINT(flags,		4);
   {
-    MMUX_LIBC_FUNCALL(mmux_libc_faccessat(dirfd, pathname, how, flags));
-    return MMUX_SUCCESS;
+    bool	access_is_permitted;
+
+    MMUX_LIBC_FUNCALL(mmux_libc_faccessat(&access_is_permitted, dirfd, pathname, how, flags));
+    return (access_is_permitted)? MMUX_SUCCESS : MMUX_FAILURE;
   }
 }
 MMUX_BASH_DEFINE_TYPICAL_BUILTIN_FUNCTION([[[MMUX_BASH_BUILTIN_IDENTIFIER]]],
